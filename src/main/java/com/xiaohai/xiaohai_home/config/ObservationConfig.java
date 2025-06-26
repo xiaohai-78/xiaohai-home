@@ -143,7 +143,7 @@ public class ObservationConfig {
 
         // 处理普通Java对象
         Map<String, Object> result = new HashMap<>();
-        for (Field field : obj.getClass().getDeclaredFields()) {
+        for (Field field : getAllFields(obj.getClass())) {
             try {
                 field.setAccessible(true);
                 Object value = field.get(obj);
@@ -157,5 +157,19 @@ public class ObservationConfig {
             }
         }
         return result;
+    }
+
+    /**
+     * 获取类及其所有父类的所有字段
+     */
+    private static Field[] getAllFields(Class<?> clazz) {
+        List<Field> fields = new ArrayList<>();
+        while (clazz != null && clazz != Object.class) {
+            for (Field field : clazz.getDeclaredFields()) {
+                fields.add(field);
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return fields.toArray(new Field[0]);
     }
 }

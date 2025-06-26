@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * @author xiaoyuntao
  * @date 2025/06/04
@@ -29,10 +31,10 @@ public class ChatController {
     }
 
     @PostMapping(value = "/request", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String chatRequest(@RequestBody String message) {
+    public String chatRequest(@RequestBody Map<String, Object> message) {
         logger.info("Received chat request: {}", message);
-        return chatClient.prompt(message).options(DashScopeChatOptions.builder()
-                .withModel("deepseek-r1")
+        return chatClient.prompt((String)message.get("message")).options(DashScopeChatOptions.builder()
+                .withModel((String)message.get("model"))
                 .build()
         ).call().content();
     }

@@ -9,9 +9,10 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class AiConfig {
 
-    @Bean
-    @Primary
-    public ChatClient chatClient(ChatModel chatModel) {
-        return ChatClient.builder(chatModel).build();
-    }
-} 
+	@Bean
+	@Primary
+	public ChatClient chatClient(ChatModel chatModel) {
+		return ChatClient.builder(chatModel).build();
+	}
+
+}

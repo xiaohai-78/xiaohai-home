@@ -21,21 +21,22 @@ import java.util.Map;
 @RequestMapping("/chat")
 public class ChatController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
-    
-    private final ChatClient chatClient;
+	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
-    @Autowired
-    public ChatController(ChatClient chatClient) {
-        this.chatClient = chatClient;
-    }
+	private final ChatClient chatClient;
 
-    @PostMapping(value = "/request", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String chatRequest(@RequestBody Map<String, Object> message) {
-        logger.info("Received chat request: {}", message);
-        return chatClient.prompt((String)message.get("message")).options(DashScopeChatOptions.builder()
-                .withModel((String)message.get("model"))
-                .build()
-        ).call().content();
-    }
+	@Autowired
+	public ChatController(ChatClient chatClient) {
+		this.chatClient = chatClient;
+	}
+
+	@PostMapping(value = "/request", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String chatRequest(@RequestBody Map<String, Object> message) {
+		logger.info("Received chat request: {}", message);
+		return chatClient.prompt((String) message.get("message"))
+			.options(DashScopeChatOptions.builder().withModel((String) message.get("model")).build())
+			.call()
+			.content();
+	}
+
 }

@@ -2,6 +2,15 @@ spring:
   application:
     name: xiaohai-home
   ai:
+    chat:
+      client:
+        observations:
+          # default value is false.
+          log-prompt: true
+      observations:
+        log-prompt: true
+        log-completion: true
+        include-error-logging: true
     dashscope:
       api-key: ${AI_DASHSCOPE_API_KEY}
 #    openai:
@@ -34,3 +43,24 @@ management:
       probability: 1.0
 server:
   port: 8089
+
+otel:
+  traces:
+    exporter: otlp
+    sampler: always_on
+  metrics:
+    exporter: otlp
+  # logs exportation inhibited for langfuse currently cannot support
+  logs:
+    exporter: none
+  exporter:
+    otlp:
+      endpoint: "https://cloud.langfuse.com/api/public/otel"
+      headers:
+        Authorization: "Basic ***"
+      protocol: http/protobuf
+
+logging:
+  level:
+    io.opentelemetry: DEBUG
+    org.springframework.ai: DEBUG

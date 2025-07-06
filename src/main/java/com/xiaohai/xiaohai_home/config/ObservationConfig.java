@@ -75,9 +75,10 @@ public class ObservationConfig {
 
 			@Override
 			public void onStop(ChatModelObservationContext context) {
-				Object limitedDepthObj = toLimitedDepth(context, 5);
-				logger.info("[ChatModelObservation] stop context:\n {}",
-						JSON.toJSONString(limitedDepthObj, SerializerFeature.PrettyFormat));
+//				Object limitedDepthObj = toLimitedDepth(context, 5);
+//				logger.info("[ChatModelObservation] stop context:\n {}",
+//						JSON.toJSONString(limitedDepthObj, SerializerFeature.PrettyFormat));
+				logger.info("[ChatModelObservation] stop context name: {}", JsonParser.toJson(context.getName()));
 			}
 		};
 	}

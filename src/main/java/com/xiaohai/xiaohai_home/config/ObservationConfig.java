@@ -59,7 +59,7 @@ public class ObservationConfig {
 
 			@Override
 			public void onStop(ChatClientObservationContext context) {
-				logger.info("[ChatClientObservationContext] stop context: {}", JsonParser.toJson(context));
+				logger.info("[ChatClientObservationContext] stop context name: {}", JsonParser.toJson(context.getName()));
 			}
 		};
 	}
